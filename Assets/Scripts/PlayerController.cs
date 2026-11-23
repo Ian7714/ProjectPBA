@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,6 +11,9 @@ public class PlayerController : MonoBehaviour
     public float sensX;
     public float sensY;
     float rotationX, rotationY;
+
+    public GameObject ballPrefab;
+    public GameObject hand;
 
     private void Awake()
     {
@@ -47,6 +51,7 @@ public class PlayerController : MonoBehaviour
         rotationX = Mathf.Clamp(rotationX, -90f, 90f);
 
         Camera.main.transform.rotation = Quaternion.Euler(rotationX, rotationY, 0f);
+        transform.rotation = Quaternion.Euler(0f, rotationY, 0f);
     }
 
     Vector2 moveInput;
@@ -54,4 +59,18 @@ public class PlayerController : MonoBehaviour
     {
         moveInput = value.Get<Vector2>();
     }
+
+    void OnFire(InputValue value)
+    {
+        Shoot(ballPrefab);
+    }
+
+    void Shoot(GameObject prefab)
+    {
+        Vector3 handEuler = hand.transform.eulerAngles;
+        Vector3 fixXRot = new Vector3(45f, handEuler.y, handEuler.z);
+
+        Instantiate(prefab, hand.transform.position, Quaternion.Euler(fixXRot));
+    }
+
 }
