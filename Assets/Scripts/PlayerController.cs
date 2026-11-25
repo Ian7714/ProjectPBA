@@ -5,6 +5,12 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    /*
+    Assets List:
+    Bowling and pin: https://www.turbosquid.com/FullPreview/520062
+    Ramp: https://assetstore.unity.com/packages/3d/environments/roadways/anima-proxima-low-poly-racing-track-starter-pack-389272
+    */
+
     Rigidbody rb;
     public float speed = 5f;
 
